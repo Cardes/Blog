@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+   collabora:
+      image: collabora/code
+      container_name: "collabora"
+      restart: "always"
+      cap_add:
+          - MKNOD
+      ports:
+          - "127.0.0.1:9980:9980"
+      environment:
+          domain: "cloud\\.yourdomain\\.tld"
+	        username: "admin"
+          password: "your-secret-passphrase"
+   watchtower:
+      image: v2tec/watchtower
+      container_name: "watchtower"
+      restart: "always"
+      volumes:
+          - "/var/run/docker.sock:/var/run/docker.sock"
+      command: "--interval 300 --cleanup"
